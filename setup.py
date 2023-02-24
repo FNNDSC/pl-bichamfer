@@ -22,11 +22,12 @@ setup(
     name='radial-distance-map',
     version=get_version('bichamfer.py'),
     description='Bi-directional mincchamfer',
-    author='FNNDSC',
+    author='Jennings Zhang',
     author_email='Jennings.Zhang@childrens.harvard.edu',
     url='https://github.com/FNNDSC/pl-radial-distance-map',
     py_modules=['bichamfer'],
-    install_requires=['chris_plugin'],
+    scripts=['chamfer.sh'],
+    install_requires=['chris_plugin', 'loguru'],
     license='MIT',
     entry_points={
         'console_scripts': [

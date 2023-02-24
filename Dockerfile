@@ -1,10 +1,8 @@
-# Python version can be changed, e.g.
-# FROM python:3.8
-# FROM docker.io/fnndsc/conda:python3.10.2-cuda11.6.0
-FROM docker.io/python:3.11.0-slim-bullseye
+# see the base/ directory
+FROM docker.io/fnndsc/pl-radial-distance-map:base-1
 
-LABEL org.opencontainers.image.authors="FNNDSC <Jennings.Zhang@childrens.harvard.edu>" \
-      org.opencontainers.image.title="Radial Distance Map" \
+LABEL org.opencontainers.image.authors="FNNDSC <dev@babyMRI.org>" \
+      org.opencontainers.image.title="pl-radial-distance-map" \
       org.opencontainers.image.description="Bi-directional mincchamfer"
 
 WORKDIR /usr/local/src/pl-radial-distance-map

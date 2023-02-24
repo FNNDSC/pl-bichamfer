@@ -5,12 +5,9 @@
 [![ci](https://github.com/FNNDSC/pl-radial-distance-map/actions/workflows/ci.yml/badge.svg)](https://github.com/FNNDSC/pl-radial-distance-map/actions/workflows/ci.yml)
 
 `pl-radial-distance-map` is a [_ChRIS_](https://chrisproject.org/)
-_ds_ plugin which takes in ...  as input files and
-creates ... as output files.
-
-## Abstract
-
-...
+_ds_ plugin wrapper around a bi-directional `mincchamfer` program.
+It creates a radial distance map for every MINC mask image inside a
+given input directory.
 
 ## Installation
 
@@ -22,12 +19,7 @@ run from either within _ChRIS_ or the command-line.
 ## Local Usage
 
 To get started with local command-line usage, use [Apptainer](https://apptainer.org/)
-(a.k.a. Singularity) to run `pl-radial-distance-map` as a container:
-
-```shell
-apptainer exec docker://fnndsc/pl-radial-distance-map bichamfer [--args values...] input/ output/
-```
-
+(a.k.a. Singularity) to run `pl-radial-distance-map` as a container.
 To print its available options, run:
 
 ```shell
@@ -36,74 +28,17 @@ apptainer exec docker://fnndsc/pl-radial-distance-map bichamfer --help
 
 ## Examples
 
-`bichamfer` requires two positional arguments: a directory containing
-input data, and a directory where to create output data.
-First, create the input directory and move input data into it.
+Convert a directory containing .mnc mask images to distance map volumes,
+where output files use the same file names as their corresponding files:
 
 ```shell
-mkdir incoming/ outgoing/
-mv some.dat other.dat incoming/
-apptainer exec docker://fnndsc/pl-radial-distance-map:latest bichamfer [--args] incoming/ outgoing/
+apptainer exec docker://fnndsc/pl-radial-distance-map bichamfer input_masks/ output_chamfers/
 ```
 
-## Development
-
-Instructions for developers.
-
-### Building
-
-Build a local container image:
+If the input directory is the same as the output directory, then output file
+names are renamed to have the suffix `.chamfer.mnc`. This is useful for running
+`pl-radial-distance-map` "in-place" on all masks in the current working directory:
 
 ```shell
-docker build -t localhost/fnndsc/pl-radial-distance-map .
+apptainer exec docker://fnndsc/pl-radial-distance-map bichamfer . .
 ```
-
-### Running
-
-Mount the source code `bichamfer.py` into a container to try out changes without rebuild.
-
-```shell
-docker run --rm -it --userns=host -u $(id -u):$(id -g) \
-    -v $PWD/bichamfer.py:/usr/local/lib/python3.10/site-packages/bichamfer.py:ro \
-    -v $PWD/in:/incoming:ro -v $PWD/out:/outgoing:rw -w /outgoing \
-    localhost/fnndsc/pl-radial-distance-map bichamfer /incoming /outgoing
-```
-
-### Testing
-
-Run unit tests using `pytest`.
-It's recommended to rebuild the image to ensure that sources are up-to-date.
-Use the option `--build-arg extras_require=dev` to install extra dependencies for testing.
-
-```shell
-docker build -t localhost/fnndsc/pl-radial-distance-map:dev --build-arg extras_require=dev .
-docker run --rm -it localhost/fnndsc/pl-radial-distance-map:dev pytest
-```
-
-## Release
-
-Steps for release can be automated by [Github Actions](.github/workflows/ci.yml).
-This section is about how to do those steps manually.
-
-### Increase Version Number
-
-Increase the version number in `setup.py` and commit this file.
-
-### Push Container Image
-
-Build and push an image tagged by the version. For example, for version `1.2.3`:
-
-```
-docker build -t docker.io/fnndsc/pl-radial-distance-map:1.2.3 .
-docker push docker.io/fnndsc/pl-radial-distance-map:1.2.3
-```
-
-### Get JSON Representation
-
-Run [`chris_plugin_info`](https://github.com/FNNDSC/chris_plugin#usage)
-to produce a JSON description of this plugin, which can be uploaded to a _ChRIS Store_.
-
-```shell
-docker run --rm localhost/fnndsc/pl-radial-distance-map:dev chris_plugin_info > chris_plugin_info.json
-```
-
