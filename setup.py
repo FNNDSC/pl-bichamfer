@@ -19,18 +19,18 @@ def get_version(rel_path: str) -> str:
 
 
 setup(
-    name='chris-plugin-template',
-    version=get_version('app.py'),
-    description='A ChRIS DS plugin template',
+    name='radial-distance-map',
+    version=get_version('bichamfer.py'),
+    description='Bi-directional mincchamfer',
     author='FNNDSC',
-    author_email='dev@babyMRI.org',
-    url='https://github.com/FNNDSC/python-chrisapp-template',
-    py_modules=['app'],
+    author_email='Jennings.Zhang@childrens.harvard.edu',
+    url='https://github.com/FNNDSC/pl-radial-distance-map',
+    py_modules=['bichamfer'],
     install_requires=['chris_plugin'],
     license='MIT',
     entry_points={
         'console_scripts': [
-            'commandname = app:main'
+            'bichamfer = bichamfer:main'
         ]
     },
     classifiers=[
