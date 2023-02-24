@@ -24,7 +24,7 @@ setup(
     description='Bi-directional mincchamfer',
     author='Jennings Zhang',
     author_email='Jennings.Zhang@childrens.harvard.edu',
-    url='https://github.com/FNNDSC/pl-radial-distance-map',
+    url='https://github.com/FNNDSC/pl-bichamfer',
     py_modules=['bichamfer'],
     scripts=['chamfer.sh'],
     install_requires=['chris_plugin', 'loguru'],

@@ -1,11 +1,11 @@
 # see the base/ directory
-FROM docker.io/fnndsc/pl-radial-distance-map:base-1
+FROM docker.io/fnndsc/pl-bichamfer:base-1
 
 LABEL org.opencontainers.image.authors="FNNDSC <dev@babyMRI.org>" \
-      org.opencontainers.image.title="pl-radial-distance-map" \
+      org.opencontainers.image.title="pl-bichamfer" \
       org.opencontainers.image.description="Bi-directional mincchamfer"
 
-WORKDIR /usr/local/src/pl-radial-distance-map
+WORKDIR /usr/local/src/pl-bichamfer
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
