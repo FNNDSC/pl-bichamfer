@@ -2,7 +2,7 @@ FROM docker.io/fnndsc/microminc-builder:latest as builder
 
 RUN microminc.sh minccalc mincchamfer mincdefrag mincreshape /microminc
 
-FROM fnndsc/conda:python3.11.0
+FROM python:3.11.2-slim-bullseye
 COPY --from=builder /microminc /opt/microminc
 ENV PATH=/opt/microminc/bin:$PATH \
     LD_LIBRARY_PATH=/opt/microminc/lib:$LD_LIBRARY_PATH \

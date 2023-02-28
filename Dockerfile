@@ -1,5 +1,5 @@
 # see the base/ directory
-FROM docker.io/fnndsc/pl-bichamfer:base-1
+FROM docker.io/fnndsc/pl-bichamfer:base-2
 
 LABEL org.opencontainers.image.authors="FNNDSC <dev@babyMRI.org>" \
       org.opencontainers.image.title="pl-bichamfer" \

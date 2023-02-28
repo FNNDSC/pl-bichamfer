@@ -1,26 +1,26 @@
 #!/usr/bin/env python
-import os
-from pathlib import Path
-from argparse import ArgumentParser, Namespace, ArgumentDefaultsHelpFormatter
-import subprocess as sp
 import itertools
-from concurrent.futures import ThreadPoolExecutor
-
+import os
 import shlex
-from loguru import logger
-from chris_plugin import chris_plugin, PathMapper
+import subprocess as sp
+from argparse import ArgumentParser, Namespace, ArgumentDefaultsHelpFormatter
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 
-__version__ = '1.0.0'
+from chris_plugin import chris_plugin, PathMapper
+from loguru import logger
+
+__version__ = '1.0.1'
 
 DISPLAY_TITLE = r"""
-       _                      _ _       _           _ _     _                                                    
-      | |                    | (_)     | |         | (_)   | |                                                   
- _ __ | |______ _ __ __ _  __| |_  __ _| |______ __| |_ ___| |_ __ _ _ __   ___ ___ ______ _ __ ___   __ _ _ __  
-| '_ \| |______| '__/ _` |/ _` | |/ _` | |______/ _` | / __| __/ _` | '_ \ / __/ _ \______| '_ ` _ \ / _` | '_ \ 
-| |_) | |      | | | (_| | (_| | | (_| | |     | (_| | \__ \ || (_| | | | | (_|  __/      | | | | | | (_| | |_) |
-| .__/|_|      |_|  \__,_|\__,_|_|\__,_|_|      \__,_|_|___/\__\__,_|_| |_|\___\___|      |_| |_| |_|\__,_| .__/ 
-| |                                                                                                       | |    
-|_|                                                                                                       |_|    
+       _        _     _      _                      __          
+      | |      | |   (_)    | |                    / _|         
+ _ __ | |______| |__  _  ___| |__   __ _ _ __ ___ | |_ ___ _ __ 
+| '_ \| |______| '_ \| |/ __| '_ \ / _` | '_ ` _ \|  _/ _ \ '__|
+| |_) | |      | |_) | | (__| | | | (_| | | | | | | ||  __/ |   
+| .__/|_|      |_.__/|_|\___|_| |_|\__,_|_| |_| |_|_| \___|_|   
+| |
+|_|
 """
 
 
@@ -66,7 +66,7 @@ def main(options: Namespace, inputdir: Path, outputdir: Path):
 
 def bichamfer(mask: os.PathLike, chamfer: os.PathLike, boundary: float):
     cmd = ('chamfer.sh', '-c', str(boundary), mask, chamfer)
-    logger.info('Starting: {}', shlex.join(map(str, cmd)))
+    logger.info(shlex.join(map(str, cmd)))
     sp.run(cmd, check=True)
 
 
